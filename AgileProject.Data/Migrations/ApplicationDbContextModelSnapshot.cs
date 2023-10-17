@@ -130,7 +130,13 @@ namespace AgileProject.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentBoxId");
+
+                    b.HasIndex("ReceiverBoxId");
+
                     b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Mail");
                 });
@@ -371,13 +377,37 @@ namespace AgileProject.Data.Migrations
 
             modelBuilder.Entity("AgileProject.Data.Entities.MailEntity", b =>
                 {
+                    b.HasOne("AgileProject.Data.Entities.BoxEntity", "CBox")
+                        .WithMany()
+                        .HasForeignKey("CurrentBoxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgileProject.Data.Entities.BoxEntity", "RBox")
+                        .WithMany()
+                        .HasForeignKey("ReceiverBoxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AgileProject.Data.Entities.ContactEntity", "Contact")
                         .WithMany()
                         .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AgileProject.Data.Entities.UserEntity", "Owner")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CBox");
+
                     b.Navigation("Contact");
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("RBox");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
