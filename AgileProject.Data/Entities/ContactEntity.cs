@@ -25,10 +25,6 @@ namespace AgileProject.Data.Entities
         [Required]
         [MaxLength(14)]
         public string? PhoneNumber { get; set; }
-        [Required]
-        [ForeignKey(nameof(CId))]
-        public int ContactOfId { get; set; }
-        public UserEntity CId { get; set; } = null!;
         public DateTime DateCreated { get; set; }
     }
 }
