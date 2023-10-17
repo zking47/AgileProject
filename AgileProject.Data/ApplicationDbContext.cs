@@ -13,6 +13,12 @@ namespace AgileProject.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
 
+
+        public DbSet<BoxEntity> Boxes {get; set;} =null!;
+        public DbSet<MailEntity> Mail {get; set;} =null!;
+        public DbSet<ContactEntity> Contacts {get; set;} =null!;
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
